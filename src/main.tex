@@ -1,0 +1,56 @@
+\documentclass{article}
+
+\input{config.tex}
+
+% Define lengths for writing lines for easy configuration
+\newlength{\writinglinewidth}
+\setlength{\writinglinewidth}{6.0in}
+
+\newlength{\interlinespace}
+\setlength{\interlinespace}{0.8cm}
+
+\newlength{\midline}
+\setlength{\midline}{1.0cm}
+
+\newlength{\topline}
+\setlength{\topline}{1.7cm}
+
+\newlength{\bottomline}
+\setlength{\bottomline}{-0.45cm}
+
+\newlength{\textpos}
+\setlength{\textpos}{-1.05cm}
+
+\newcommand{\writingline}[1]{%
+	\noindent
+	\begin{tikzpicture}
+		\draw[gray, thick] (0,0) -- (\writinglinewidth,0);
+		\draw[gray, thick, dotted]  (0,\midline) -- (\writinglinewidth,\midline);
+		\draw[gray, thick] (0,\topline) -- (\writinglinewidth,\topline);
+		\draw[gray, thick, dotted]  (0,\bottomline) -- (\writinglinewidth,\bottomline);
+		\node[
+			anchor=south west,
+			scale=7.8,
+			text depth=0.5,
+			text height=2.5,
+		] at (0,\textpos) {\sf\color{lightgray}#1};
+	\end{tikzpicture}%
+	
+	\vspace{\interlinespace}
+}
+
+
+
+\begin{document}
+
+\begin{center}
+	{\huge\sf Writing Practice}	
+	\vspace{1cm}
+	
+	\DTLloaddb[keys={value}]{wordlist}{words.txt}
+	\DTLforeach{wordlist}{\currentword=value}{%
+		\writingline{\currentword}%
+	}	
+\end{center}
+
+\end{document}
